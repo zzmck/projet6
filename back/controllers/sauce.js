@@ -93,16 +93,16 @@ exports.likeSauce=(req,res,next)=>{
   //LIKE = 1
   //DISLIKE = -1
   //Ni l un ni l autre = 0
-let quelAppui  = req.body.like;
+let PushLikeDislike  = req.body.like;
 //Récupération de l'id user
 let userId=req.body.userId;
 //Récupération de l'id Sauce
 let sauceId = req.params.id;
 //Informations
-console.log("user : "+userId+" like / dislike : "+quelAppui+" La sauce : " + sauceId);
+console.log("user : "+userId+" like / dislike : "+PushLikeDislike+" La sauce : " + sauceId);
 
 //console.log(req.body);
-if(quelAppui===1){
+if(PushLikeDislike===1){
 //Si c'est = à 1 on l'ajoute dans la base de donnée usersLiked
 
     Sauce.updateOne( { _id: sauceId }, { $push: { usersLiked : userId }, $inc: { likes: +1 } } )
@@ -112,7 +112,7 @@ if(quelAppui===1){
     .catch((error=> res.status(400).json({message:"pas marché"})));
 
 
-} else if (quelAppui === -1){
+} else if (PushLikeDislike === -1){
 //Si c'est = à -1 on l'ajoute dans la base de donnée usersDisliked 
 
     Sauce.updateOne( { _id: sauceId }, { $push: { usersDisliked : userId }, $inc: {dislikes: +1 } } )
